@@ -1,0 +1,30 @@
+{
+  "name": "what_to_do_api",
+  "version": "0.0.1",
+  "description": "This is a part of a product which helps a user to decide how they should spend a few hours. The best days out with friends (or a date) include three things: - Food (which includes drink)  - An experience - Good conversation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "make-types": "node lib/quicktype.js",
+    "build-tooling": "tsc src/lib/quicktype.ts --resolveJsonModule --outDir ./ --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/murpjack/what_to_do_api.git"
+  },
+  "author": "Jack Murphy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/murpjack/what_to_do_api/issues"
+  },
+  "homepage": "https://github.com/murpjack/what_to_do_api#readme",
+  "devDependencies": {
+    "quicktype": "^15.0.261",
+    "quicktype-core": "^6.0.71",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "fluture": "^14.0.0",
+    "ramda": "^0.28.0"
+  }
+}
