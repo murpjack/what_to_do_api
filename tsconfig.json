@@ -22,6 +22,7 @@
       "node_modules",
       // "./src/_test_/**/*",
       "dist",
-      "types.ts"
+      "types.ts",
+      "src/types/"
     ]
 }
