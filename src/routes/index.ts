@@ -1,21 +1,8 @@
 import express from 'express';
+import * as controllers from '../controllers/';
 // import cors from 'cors';
 // import { whitelist } from '../whitelist';
 export const router = express.Router();
-
-// import usersControllers from '../controllers/usersControllers';
-// import adviceControllers from '../controllers/adviceControllers';
-// import diningControllers from '../controllers/diningControllers';
-// import activitiesControllers from '../controllers/activitiesControllers';
-// import planControllers from '../controllers/itinerariesControllers';
-
-/**
- *
- * Whitelist is stored as a JSON string in env.
- *
- * Whitelist is parsed into an object and added to our CORS exceptions.
- * @todo comment this properly.
- */
 
 // const whitelistArray = Object.keys(whitelist)?.map(
 //   (o: string) => whitelist[o],
@@ -47,41 +34,61 @@ export const router = express.Router();
 // router.use(cors(options));
 
 // This is a test route!!
-router.get('/test', (req: any, res: any) => {
-  res.json({ message: 'pass!' });
+// router.get('/test', (req: any, res: any) => {
+//   res.json({ message: 'pass!' });
+// });
+
+const validMethod = (method: string): string => {
+  switch (method) {
+    case 'get':
+      return 'get';
+
+    case 'post':
+      return 'post';
+
+    case 'put':
+      return 'put';
+
+    case 'delete':
+      return 'delete';
+
+    default:
+      return 'use';
+  }
+};
+
+// TODO: comment this code?
+/**
+    File structure: 
+    
+    |___controllers
+    |   |   # index.ts contains all controllers to be added to the route.      
+    |   |   # Importing controllers this way seems simplest.
+    |   |   index.tx       
+    |   |   
+    |   |   someController{.ts}
+    |   |       ["verb::nameOfRequestHandler"] : (request, response) => # Something exciting
+    |   |       ["verb::nameOfRequestHandler"] : (request, response) => # Something exciting
+    |   |       ...   
+    |   |   
+    |   |   entertainmentController{.ts}
+    |   ...
+
+    note. index.ts and any controller files return a 'default' export object, which is seen below.
+*/
+Object.keys(controllers.default).map((controllerName, i) => {
+  Object.keys(controllers.default[controllerName].default).forEach(
+    (routeHandlerFileName) => {
+      const [method, handlerName] = routeHandlerFileName.split('::');
+
+      router[validMethod(method)](
+        `/${controllerName}/${handlerName}`,
+        controllers.default[controllerName].default[
+          routeHandlerFileName
+        ],
+      );
+    },
+  );
 });
-
-/** Routes for product users. */
-// router.get('/user/getallusers', usersControllers.getAllUsers);
-// router.post('/user/addsingleuser', usersControllers.createUser);
-// router.put('/user/updatesingleuser', usersControllers.updateUser);
-// router.delete('/user/removesingleuser', usersControllers.deleteUser);
-
-// /** Routes for advice. */
-// router.get('/advice/getalladvice', adviceControllers.getAdvice);
-// // router.post("/advice/addadvice", adviceControllers.createAdvice);
-// // router.put("/advice/updateadvice/:id", adviceControllers.updateAdvice);
-// // router.delete("/advice/removeadvice/:id", adviceControllers.deleteAdvice);
-
-// /** Routes for dining. */
-// router.get('/dining/getallvenues', diningControllers.getDiners);
-// // router.post("/dining/addvenue", diningControllers.createDiner);
-// // router.put("/dining/updatevenuedetail/:id", diningControllers.updateDiner);
-// // router.delete("/dining/removevenue/:id", diningControllers.deleteDiner);
-
-// /** Routes for activities. */
-// router.get(
-//   '/activities/getallvenues',
-//   activitiesControllers.getActivities,
-// );
-// // router.post("/activities/addvenue", activitiesControllers.createActivity);
-// // router.put("/activities/updatevenuedetail/:id", activitiesControllers.updateActivity);
-// // router.delete("/activities/removevenue/:id", activitiesControllers.deleteActivity);
-
-// /** Routes for itineraries. */
-// router.get('/plan/getallitineraries', planControllers.getPlans);
-// // router.post("/plan/additinerary", planControllers.createPlan);
-// // router.put("/plan/updatitinerary/:id", planControllers.updatePlan);
-// // router.delete("/plan/removeitinerary/:id", planControllers.deletePlan);
 
 export default router;
