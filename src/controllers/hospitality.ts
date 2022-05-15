@@ -9,6 +9,7 @@
 // TODO: Write simple CRUD operations
 // TODO: Write helpers for error handling, common messages, etc.
 // TODO: Test CRUD operations
+// TODO: Decide and Hook up DB
 
 // TODO: define types
 export const getAllVenues = async (_: any, res: any) => {
@@ -30,12 +31,10 @@ export const updateVenue = async (_: any, res: any) => {
 };
 
 export const requestDeleteVenue = async (_: any, res: any) => {
-  return res
-    .status(202)
-    .json({
-      success: true,
-      data: 'Request submitted. Pending approval',
-    });
+  return res.status(202).json({
+    success: true,
+    data: 'Request submitted. Pending approval',
+  });
 };
 
 export const deleteVenue = async (_: any, res: any) => {
@@ -45,6 +44,10 @@ export const deleteVenue = async (_: any, res: any) => {
     .status(410)
     .json({ success: true, data: 'venue deleted' });
 };
+
+// TODO: Dynamically generate export expression
+// TODO: Could return each callback in one obj?
+// TODO: Could create a file - given a config - using plop and handlebars?
 
 export default {
   ['get::getAllVenues']: getAllVenues,
