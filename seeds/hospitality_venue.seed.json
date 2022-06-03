@@ -1,0 +1,18 @@
+{
+  "hospitality_venue": {
+    "venueId": "0123456789",
+    "venueName": "Slug and Lettuce",
+    "venueType": "HOSPITALITY",
+    "approvalStatus": "APPROVED",
+    "locationGeohash": "ttnfv2u",
+    "description": "Slug and Lettuce Coventry is set right opposite the Cathedral Ruins, and has a fantastic outside bar and beautiful beer garden.",
+    "costOfCokeOrSimilar": "1.79",
+    "telephone": "01234567890",
+    "email": "go@on.in",
+    "foodMenuUrl": "site.com/url",
+    "hasGlutenFreeOptions": true,
+    "hasVeganOptions": true,
+    "hasWheelchairAccess": true,
+    "hasBabyChangingFacilities": true
+  }
+}
