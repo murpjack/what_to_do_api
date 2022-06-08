@@ -1,3 +1,6 @@
+//import { DeleteCommand } from '@aws-sdk/lib-dynamodb';
+//import { ddbDocClient } from '../db/documentClient.js';
+//
 // import userModel from "../models/user";
 // import {
 //   // notValid,
@@ -87,8 +90,7 @@
 //   if (!body) {
 //     return res.status(400).json({
 //       success: false,
-//       error: "The user details you have submitted are invalid.",
-//     });
+//       error: "The user details you have submitted are invalid.",//     });
 //   }
 
 //   await userModel.findOne({ "_id": body._id }, (error: any, user: any) => {
@@ -114,28 +116,58 @@
 //   });
 // };
 
-// export const deleteUser = async (req: any, res: any) => {
-//   const body = req.body;
-//   if (!body) {
-//     return res.status(400).json({
-//       success: false,
-//       error: "The user details you have submitted are invalid.",
-//     });
-//   }
-
-//   await userModel.findOneAndDelete({ _id: body._id }, (error: any, user: any) => {
-//     if (error) { return res.status(400).json({ success: false, error }) }
-
-//     if (!user) { return res.status(404).json({ success: false, error: `User not found.` }) }
-
-//     return res.status(200).json({
-//         success: true,
-//         id: user._id,
-//         message: `${user.name}'s profile has been deleted!`,
-//       });
-//   }).catch((error: any) => res.status(404).json({ error, message: "User was not deleted!" }));
-// };
-
+//export const deleteUser = async (req: any, res: any) => {
+//  const body = req.body;
+//  if (!body) {
+//    return res.status(400).json({
+//      success: false,
+//      error: 'The user details you have submitted are invalid.',
+//    });
+//  }
+//
+//  await userModel
+//    .findOneAndDelete({ _id: body._id }, (error: any, user: any) => {
+//      if (error) {
+//        return res.status(400).json({ success: false, error });
+//      }
+//
+//      if (!user) {
+//        return res
+//          .status(404)
+//          .json({ success: false, error: `User not found.` });
+//      }
+//
+//      return res.status(200).json({
+//        success: true,
+//        id: user._id,
+//        message: `${user.name}'s profile has been deleted!`,
+//      });
+//    })
+//    .catch((error: any) =>
+//      res
+//        .status(404)
+//        .json({ error, message: 'User was not deleted!' }),
+//    );
+//};
+//
+// Set the parameters.
+//export const params = {
+//  TableName: 'TABLE_NAME',
+//  Key: {
+//    primaryKey: 'VALUE_1',
+//    sortKey: 'VALUE_2',
+//  },
+//};
+//
+//export const deleteItem = async () => {
+//  try {
+//    await ddbDocClient.send(new DeleteCommand(params));
+//    console.log('Success - item deleted');
+//  } catch (err) {
+//    console.log('Error', err);
+//  }
+//};
+//
 // interface userType {
 //   _id: string;
 //   age: number;

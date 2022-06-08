@@ -1,3 +1,4 @@
+import { putItem } from '../db/putItem.js';
 // import userModel from "../models/user";
 // import {
 //   // notValid,
@@ -13,12 +14,14 @@
 
 // TODO: define types
 export const getAllVenues = async (_: any, res: any) => {
+  putItem();
   return res
     .status(200)
     .json({ success: true, data: [{ a: 'boo', b: 'bah' }] });
 };
 
 export const createVenue = async (_: any, res: any) => {
+  putItem();
   return res
     .status(201)
     .json({ success: true, data: 'Venue created' });

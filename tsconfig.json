@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es2015",
-        "baseUrl": "src",
+        "target": "es2020",
+        "baseUrl": "./",
+        "rootDir": "./src",
         "outDir": "dist",
         "lib": ["dom", "es2018"],
         "sourceMap": true,
@@ -16,10 +16,15 @@
         "noImplicitAny": true,
         "strictNullChecks": true,
         "suppressImplicitAnyIndexErrors": true,
-        "noUnusedLocals": true
+        "noUnusedLocals": true,
+        "allowJs": true,
+        "paths": {
+            "src/*": ["./src/*"]
+        }
     },
     "exclude": [
       "node_modules",
+      "lib",
       // "./src/_test_/**/*",
       "dist",
       "types.ts",

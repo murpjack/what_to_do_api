@@ -27,7 +27,9 @@ router.use(corsOptions);
 const validMethod = (method: string) =>
   ['get', 'post', 'put', 'delete'].includes(method) ? method : 'use';
 
-Object.keys(controllers.default).map((controllerName, i) => {
+// TODO: controllerName is currently also used as a tableName,
+// though this ought to change
+Object.keys(controllers.default).map((controllerName) => {
   Object.keys(controllers.default[controllerName].default).forEach(
     (routeHandlerFileName) => {
       const [method, handlerName] = routeHandlerFileName.split('::');
@@ -37,7 +39,7 @@ Object.keys(controllers.default).map((controllerName, i) => {
         controllers.default[controllerName].default[
           routeHandlerFileName
         ],
-      );
+      )(controllerName);
     },
   );
 });
