@@ -18,9 +18,27 @@ if (!!AIRTABLE_API_KEY) {
 
 app.get('/', (req, res) => {
   // TODO To be removed
-  const id = 'recNeuuzSNQWCMHdy';
   superagent
-    .delete(`http://localhost:${port}/api/hospitality/venues/${id}`)
+    .post(`http://localhost:${port}/api/hospitality/venues`)
+    .send({
+      venues: [
+        {
+          approvalStatus: 'APPROVED',
+          costOfCokeOrSimilar: 4.79,
+          description:
+            'A family run speciality coffee shop in the heart of Coventry city centre.',
+          email: 'go@on.in',
+          foodMenuUrl: 'site.com/url',
+          hasGlutenFreeOptions: true,
+          hasVeganOptions: true,
+          hasWheelchairAccess: true,
+          hasBabyChangingFacilities: true,
+          locationHash: 'gcqfjs7ee',
+          telephone: '01234567890',
+          venueName: 'Bean and Leaf',
+        },
+      ],
+    })
     .catch((err: any) => {
       res.send(err);
     })
