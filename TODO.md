@@ -1,8 +1,5 @@
 ## NOT STARTED
 
-- [ ] 1h Create basic express server instance
-- [ ] .5h Create controller
-
 - [ ] .5h Configure Jest
 - [ ] 1h Write tests for Create
 - [ ] 1h Write tests for Read
@@ -22,3 +19,5 @@
 ## COMPLETE
 
 - [x] 1h Decide architecture of project
+- [x] 1h Create basic express server instance
+- [x] .5h Create controller

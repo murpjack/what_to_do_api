@@ -181,7 +181,7 @@
 // };
 // export default { getAllUsers, createUser, createMockUser, updateUser, deleteUser };
 export default {
-  ['get::getAllUsers']: (req: any, res: any) => {
+  ['get::getAllUsers']: (_: any, res: any) => {
     return res.status(200).json({ success: true, data: 'Yaay' });
   },
   // ['post#postAllUsers']: () => {},
