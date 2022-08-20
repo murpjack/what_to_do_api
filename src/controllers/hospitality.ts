@@ -1,5 +1,4 @@
-import { putItem } from '../db/putItem.js';
-// import userModel from "../models/user";
+import Airtable from 'airtable';
 // import {
 //   // notValid,
 //   notReturned,
@@ -7,55 +6,115 @@ import { putItem } from '../db/putItem.js';
 //   // notUpdated,
 //   // idAlreadyExists
 //  } from "./setupControllers";
-// TODO: Write simple CRUD operations
-// TODO: Write helpers for error handling, common messages, etc.
+// TODO: Define types
 // TODO: Test CRUD operations
-// TODO: Decide and Hook up DB
+// TODO: Write helpers for error handling, common messages, etc.
 
-// TODO: define types
-export const getAllVenues = async (_: any, res: any) => {
-  putItem();
-  return res
-    .status(200)
-    .json({ success: true, data: [{ a: 'boo', b: 'bah' }] });
+const BASE = process.env.AIRTABLE_BASE || '';
+
+export const getVenues = (_: any, res: any) => {
+  const base = Airtable.base(BASE);
+  base('hospitality')
+    .select({
+      maxRecords: 10,
+      view: 'Grid view',
+    })
+    .eachPage(page, done);
+  function page(records: any, fetchNextPage: any) {
+    // This function (`page`) will get called for each page of records.
+    let data: any = [];
+    records.forEach((record: any) => {
+      console.log('Retrieved', record.get('id'));
+      data = [...data, record.get('id')];
+    });
+    return res.status(200).json({
+      success: true,
+      data,
+    });
+    // To fetch the next page of records, call `fetchNextPage`.
+    // If there are more records, `page` will get called again.
+    // If there are no more records, `done` will get called.
+    // fetchNextPage();
+  }
+  // TODO Error handling
+  function done(err: any) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+  }
 };
 
-export const createVenue = async (_: any, res: any) => {
-  putItem();
+export const getVenueById = (req: any, res: any) => {
+  const base = Airtable.base(BASE);
+  // TODO Replace value in generator with resource name
+  base('hospitality').find(req.params.id, (err: any, record: any) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    return res.status(200).json({
+      success: true,
+      record: { id: record.getId(), ...record.fields },
+    });
+  });
+};
+
+export const createVenue = (req: any, res: any) => {
+  const base = Airtable.base(BASE);
+  console.log({ body: req.body });
+  base('hospitality').create(
+    [{ fields: req.body }],
+    (err: any, records: any) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      records.forEach((record: any) => {
+        console.log(record.getId());
+      });
+    },
+  );
+
   return res
     .status(201)
     .json({ success: true, data: 'Venue created' });
 };
 
-export const updateVenue = async (_: any, res: any) => {
+export const updateVenue = (req: any, res: any) => {
+  const base = Airtable.base(BASE);
+  const { id, ...fields } = req.body;
+
+  base('hospitality').update(
+    [{ id, fields }],
+    (err: any, records: any) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log(records[0].fields);
+    },
+  );
+
   return res
     .status(200)
     .json({ success: true, data: 'venue updated' });
 };
 
-export const requestDeleteVenue = async (_: any, res: any) => {
-  return res.status(202).json({
-    success: true,
-    data: 'Request submitted. Pending approval',
-  });
-};
+export const deleteVenue = (req: any, res: any) => {
+  const base = Airtable.base(BASE);
+  base('hospitality').destroy(
+    [req.params.id],
+    (err: any, deletedRecords: any) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log('Deleted', deletedRecords.length, 'records');
+    },
+  );
 
-export const deleteVenue = async (_: any, res: any) => {
-  // TODO: Should this have a code 410 or 200?
-  // 410 = resource gone; 200 = success
   return res
     .status(410)
     .json({ success: true, data: 'venue deleted' });
-};
-
-// TODO: Dynamically generate export expression
-// TODO: Could return each callback in one obj?
-// TODO: Could create a file - given a config - using plop and handlebars?
-
-export default {
-  ['get::getAllVenues']: getAllVenues,
-  ['post::createVenue']: createVenue,
-  ['put::updateVenue']: updateVenue,
-  ['get::requestDeleteVenue']: requestDeleteVenue,
-  ['delete::deleteVenue']: deleteVenue,
 };

@@ -17,13 +17,16 @@ if (!!AIRTABLE_API_KEY) {
 }
 
 app.get('/', (req, res) => {
+  // TODO To be removed
+  const id = 'recNeuuzSNQWCMHdy';
   superagent
-    .get(`http://localhost:${port}/api/hospitality/venues`)
-    .catch(console.error)
-    .then((response) => {
-      res.send({ response });
+    .delete(`http://localhost:${port}/api/hospitality/venues/${id}`)
+    .catch((err: any) => {
+      res.send(err);
     })
-    .then(console.log);
+    .then((response: any) => {
+      res.send(response);
+    });
 });
 
 app.use('/api', router);

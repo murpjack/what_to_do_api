@@ -7,8 +7,11 @@ router.use(corsOptions);
 
 router.post(`/hospitality/venues`, h.createVenue);
 router.get(`/hospitality/venues`, h.getVenues);
-router.get(`/hospitality/venues/:venueId`, h.getVenueById);
+router.get(`/hospitality/venues/:id`, h.getVenueById);
 router.put(`/hospitality/venues`, h.updateVenue);
-router.delete(`/hospitality/venues/:venueId`, h.deleteVenue);
+router.delete(`/hospitality/venues/:id`, h.deleteVenue);
+
+// TODO Write Generator
+/** GENERATOR */
 
 export default router;
