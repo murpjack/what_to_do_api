@@ -1,14 +1,15 @@
 ## NOT STARTED
 
 - [ ] 1h Configure plop
-- [ ] 1h Write agnostic generator for Create & tests
-- [ ] 1h Write agnostic generator for Read & tests
-- [ ] 1h Write agnostic generator for Update & tests
-- [ ] 1h Write agnostic generator for Delete & tests
+- [ ] 1h Write generic generator for Create & tests
+- [ ] 1h Write generic generator for Read & tests
+- [ ] 1h Write generic generator for Update & tests
+- [ ] 1h Write generic generator for Delete & tests
 
 ## IN PROGRESS
 
-- [ ] .5h Configure Jest
+- [ ] Upgrade npm & node versions to ~v16
+- [ ] .5h Configure Cypress
 - [ ] 1h Write tests for Create
 - [ ] 1h Write tests for Read
 - [ ] 1h Write tests for Update

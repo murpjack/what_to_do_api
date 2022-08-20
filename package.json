@@ -28,6 +28,7 @@
     "@types/readable-stream": "^2.3.13",
     "@types/superagent": "^4.1.15",
     "@types/urijs": "^1.19.19",
+    "cypress": "^10.6.0",
     "fs-extra": "^10.1.0",
     "quicktype": "^15.0.261",
     "quicktype-core": "^6.0.71",
