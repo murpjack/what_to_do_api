@@ -5,4 +5,5 @@ export default defineConfig({
     baseUrl: 'http://localhost:1234',
     setupNodeEvents(on, config) {},
   },
+  responsetimeout: 6000,
 });

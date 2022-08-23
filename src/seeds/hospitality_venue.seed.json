@@ -12,6 +12,7 @@
       "hasBabyChangingFacilities": true,
       "locationHash": "gcqfjs7ee",
       "telephone": "01234567890",
+      "venueId": "TEST123",
       "venueName": "The Slug and Lettuce"
     },
     {
@@ -26,6 +27,7 @@
       "hasBabyChangingFacilities": true,
       "locationHash": "gcqfjs7ee",
       "telephone": "01234567890",
+      "venueId": "TEST456",
       "venueName": "The Bean and Leaf"
     }
   ]

@@ -14,5 +14,6 @@ export interface HospitalityVenue {
     hasBabyChangingFacilities: boolean;
     locationHash:              string;
     telephone:                 string;
+    venueId:                   string;
     venueName:                 string;
 }
