@@ -5,19 +5,7 @@
     "baseUrl": "src",
     "outDir": "dist",
     "lib": ["dom", "es2018"],
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "isolatedModules": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
-    "allowJs": true
   },
-  "exclude": ["node_modules", "dist", "lib", "types.ts", "src/types/"]
+  "extends": "./tsconfig.opts.json",
+  "include": ["src/**/*.ts"]
 }

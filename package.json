@@ -5,7 +5,7 @@
   "main": "dist/app/index.js",
   "scripts": {
     "make:types": "node lib/quicktype.js",
-    "build:dev": "tsc --watch -p tsconfig.json",
+    "build:dev": "tsc --watch",
     "build:prod": "tsc -p tsconfig.json",
     "serve:dev": "cross-env PORT=1234 nodemon dist/index.js",
     "serve:uat": "cross-env NODE_PATH=./dist PORT=4000 node dist/index.js",

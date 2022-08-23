@@ -1,10 +1,6 @@
 import Airtable from 'airtable';
-import {
-  notValid,
-  notReturned,
-  notFound,
-  notUpdated,
-} from 'db/errors';
+import { notValid, notFound, notUpdated } from '../db/errors';
+import { map, fork, node } from 'fluture';
 
 // TODO: Define types
 // TODO: Test CRUD operations
@@ -12,51 +8,56 @@ import {
 const BASE = process.env.AIRTABLE_BASE || '';
 const baseTable = Airtable.base(BASE)('hospitality');
 
-export const getVenues = (_: any, res: any) => {
-  baseTable
-    .select({
-      maxRecords: 10,
-      view: 'Grid view',
-    })
-    .eachPage(page, done);
+const reshapeData = (r: any) => ({
+  id: r.getId(),
+  ...r.fields,
+});
 
-  function page(records: any[], fetchNextPage: any) {
-    // This function (`page`) will get called for each page of records.
-    return res.status(200).json({
-      success: true,
-      data: records.map((record) => ({
-        ...record.fields,
-        id: record.getId(),
-      })),
-    });
-    // To fetch the next page of records, call `fetchNextPage`.
-    // If there are more records, `page` will get called again.
-    // If there are no more records, `done` will get called.
-    // fetchNextPage();
-  }
-  // TODO Error handling
-  function done(err: any) {
-    if (err) {
-      return notReturned(err, res);
-    }
-  }
+export const getVenues = (_: any, res: any) => {
+  node(
+    baseTable.select({
+      maxRecords: 5,
+      view: 'Grid view',
+    }).all,
+  )
+    .pipe(map((records) => records.map(reshapeData)))
+    .pipe(
+      fork((error) =>
+        res.status(400).json({
+          success: false,
+          error,
+          message:
+            'The selected document, or collection could not be returned!',
+        }),
+      )((data) => {
+        res.status(200).json({
+          success: true,
+          data,
+        });
+      }),
+    );
 };
 
 export const getVenueById = (req: any, res: any) => {
   // TODO Replace value in generator with resource name
-  baseTable.find(req.params.id, (err: any, record: any) => {
-    if (err) {
-      return notReturned(err, res);
+  baseTable.find(req.params.id, (error: any, record: any) => {
+    if (error) {
+      res.status(400).json({
+        success: false,
+        error,
+        message:
+          'The selected document, or collection could not be returned!',
+      });
     }
     return res.status(200).json({
       success: true,
-      data: { id: record.getId(), ...record.fields },
+      data: reshapeData(record),
     });
   });
 };
 
 export const createVenue = (req: any, res: any) => {
-  const venues = [...req.body.venues].map((doc) => ({
+  const venues: any = [...req.body.venues].map((doc) => ({
     fields: {
       ...doc,
       venueId: 'HOS' + Date.now() + Math.floor(Math.random()),

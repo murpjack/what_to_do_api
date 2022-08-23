@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "perm1": "hospitality-venues-create",
+    "perm2": "hospitality-venues-view",
+    "perm3": "hospitality-venues-edit",
+    "perm4": "hospitality-venues-delete",
+    "perm5": "hospitality-venues-approve"
+  }
+}
